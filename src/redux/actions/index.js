@@ -1,10 +1,10 @@
 // Coloque aqui suas actions
 
 // ACTIONS TYPES
-export const ADD_EMAIL = 'ADD_EMAIL';
+export const USER_REGISTER = 'USER_REGISTER';
 
 // ACTIONS CREATORS
-export const xxx = (abc) => ({
-  type: ADD_EMAIL,
-  abc,
+export const userRegister = (email) => ({
+  type: USER_REGISTER,
+  payload: email,
 });
