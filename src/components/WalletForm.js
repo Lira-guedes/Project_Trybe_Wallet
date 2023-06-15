@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getCurrencies } from '../redux/actions';
 
 class WalletForm extends Component {
   state = {
-    method: 'Dinheiro',
+    method: '',
     description: '',
     tag: '',
-    currency: 'USD',
+    currency: '',
     value: '',
   };
 
@@ -17,7 +20,8 @@ class WalletForm extends Component {
   handleFetch = async () => {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const data = await response.json();
-    return data;
+    const currencies = Object.keys(data).filter((elem) => elem !== 'USDT');
+    return dispatch(getCurrencies(currencies));
   };
 
   handleChange = (event) => {
@@ -36,29 +40,25 @@ class WalletForm extends Component {
         <label>
           Valor:
           <input
-            name="value"
             type="number"
             value={ value }
             data-testid="value-input"
             onChange={ this.handleChange }
           />
         </label>
-
         <label>
+          Descrição:
           <input
-            name="description"
             type="text"
             value={ description }
             data-testid="description-input"
             onChange={ this.handleChange }
           />
         </label>
-
         <label>
           Modeda:
           <select
             data-testid="currency-input"
-            name="currency"
             value={ currency }
             onChange={ this.handleChange }
           >
@@ -67,11 +67,9 @@ class WalletForm extends Component {
             ))}
           </select>
         </label>
-
         <label>
           Forma de Pagamento:
           <select
-            name="method"
             data-testid="method-input"
             value={ method }
             onChange={ this.handleChange }
@@ -81,9 +79,8 @@ class WalletForm extends Component {
             <option>Cartão de débito</option>
           </select>
         </label>
-
         <label>
-          Categoria
+          Categoria:
           <select
             name="tag"
             data-testid="tag-input"
@@ -97,7 +94,6 @@ class WalletForm extends Component {
             <option>Saúde</option>
           </select>
         </label>
-
         <button
           type="submit"
           onClick={ this.handleFetch }
@@ -114,8 +110,9 @@ const mapStateToProps = (state) => ({
 });
 
 WalletForm.propTypes = {
+  currencies: PropTypes.arrayOf().isRequired,
+  // currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   dispatch: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default connect(mapStateToProps)(WalletForm);

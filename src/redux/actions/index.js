@@ -12,5 +12,5 @@ export const userRegister = (email) => ({
 
 export const getCurrencies = (currencies) => ({
   type: 'GET_CURRENCIES',
-  currencies,
+  payload: currencies,
 });
