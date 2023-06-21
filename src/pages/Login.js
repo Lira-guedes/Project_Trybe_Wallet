@@ -55,7 +55,7 @@ class Login extends React.Component {
       <div>
         <h2>Login</h2>
         <form>
-          <label htmlFor="email-input">
+          <label>
             Email:
             <input
               type="text"
@@ -65,7 +65,7 @@ class Login extends React.Component {
               onChange={ this.handleChange }
             />
           </label>
-          <label htmlFor="password-input">
+          <label>
             Senha:
             <input
               type="password"
@@ -76,6 +76,7 @@ class Login extends React.Component {
             />
           </label>
           <button
+            name="entrar"
             type="button"
             disabled={ disabled }
             onClick={ this.handleClick }

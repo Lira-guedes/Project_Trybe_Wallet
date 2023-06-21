@@ -68,7 +68,7 @@ class WalletForm extends Component {
           />
         </label>
         <label>
-          Modeda:
+          Moeda:
           <select
             name="currency"
             data-testid="currency-input"
@@ -81,7 +81,7 @@ class WalletForm extends Component {
           </select>
         </label>
         <label>
-          Forma de Pagamento:
+          Método de pagamento:
           <select
             name="method"
             data-testid="method-input"
