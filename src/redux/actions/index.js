@@ -6,6 +6,7 @@ export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const GET_EXPENSES = 'GET_EXPENSES';
 export const GET_TOTAL = 'GET_TOTAL';
 export const REMOVE_EXPENSES = 'REMOVE_EXPENSES';
+export const EDIT_EXPENSES = 'EDIT_EXPENSES';
 
 // ACTIONS CREATORS
 export const userRegister = (email) => ({
@@ -28,14 +29,29 @@ export const getTotal = (total) => ({
   payload: total,
 });
 
-export const removeExpenses = (expenseId) => ({
+export const removeExpenses = (expenses) => ({
   type: REMOVE_EXPENSES,
-  payload: expenseId,
+  payload: expenses,
 });
 
-export const fetchCurrencies = async () => {
+export const editExpenses = (expenses) => ({
+  type: EDIT_EXPENSES,
+  payload: expenses,
+});
+
+export const fetchCurrencies = () => async (dispatch) => {
   const response = await fetch('https://economia.awesomeapi.com.br/json/all');
   const data = await response.json();
   const currencies = Object.keys(data).filter((elem) => elem !== 'USDT');
-  return dispatch(getCurrencies(currencies));
+  dispatch(getCurrencies(currencies));
+};
+
+export const fetchAddExpenses = (state) => async (dispatch) => {
+  const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+  const exchangeRates = await response.json();
+  const expenses = {
+    ...state,
+    exchangeRates,
+  };
+  dispatch(getExpenses(expenses));
 };

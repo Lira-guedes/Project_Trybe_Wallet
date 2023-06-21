@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCurrencies, getExpenses } from '../redux/actions';
+import { fetchCurrencies, fetchAddExpenses } from '../redux/actions';
 
 class WalletForm extends Component {
   state = {
@@ -22,13 +22,8 @@ class WalletForm extends Component {
     event.preventDefault();
     const { dispatch } = this.props;
 
-    const exchangeRates = await dispatch(fetchCurrencies());
-    const expenses = {
-      ...this.state,
-      exchangeRates,
-    };
+    dispatch(fetchAddExpenses(this.state));
 
-    dispatch(getExpenses(expenses));
     this.setState((prevState) => ({
       id: prevState.id + 1,
       method: 'Dinheiro',
@@ -56,6 +51,7 @@ class WalletForm extends Component {
           Valor:
           <input
             type="number"
+            name="value"
             value={ value }
             data-testid="value-input"
             onChange={ this.handleChange }
@@ -65,6 +61,7 @@ class WalletForm extends Component {
           Descrição:
           <input
             type="text"
+            name="description"
             value={ description }
             data-testid="description-input"
             onChange={ this.handleChange }
@@ -73,6 +70,7 @@ class WalletForm extends Component {
         <label>
           Modeda:
           <select
+            name="currency"
             data-testid="currency-input"
             value={ currency }
             onChange={ this.handleChange }
@@ -85,6 +83,7 @@ class WalletForm extends Component {
         <label>
           Forma de Pagamento:
           <select
+            name="method"
             data-testid="method-input"
             value={ method }
             onChange={ this.handleChange }
@@ -123,7 +122,7 @@ const mapStateToProps = (state) => ({
 });
 
 WalletForm.propTypes = {
-  currencies: PropTypes.arrayOf().isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   // currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
