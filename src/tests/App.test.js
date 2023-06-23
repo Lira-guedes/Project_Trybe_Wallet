@@ -57,4 +57,15 @@ describe('', () => {
     expect(screen.getByRole('option', { name: 'Saúde' }).selected).toBe(true);
     expect(screen.getByRole('option', { name: 'CHF' }).selected).toBe(true);
   });
+  it('Testa se os estados da WalletForm retornam ao seu valor inicial ao clicar no botão Adicionar Despesa', () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => { history.push('/carteira'); });
+    expect(screen.getByRole('button', { name: /adicionar despesa/i })).toBeInTheDocument();
+    userEvent.click(screen.getByRole('button', { name: /adicionar despesa/i }));
+    expect(screen.getByTestId('description-input')).toBe('');
+    expect(screen.getByTestId('currency-input')).toBe('USD');
+    expect(screen.getByTestId('tag-input')).toBe('Lazer');
+    expect(screen.getByTestId('method-input')).toBe('Dinheiro');
+    expect(screen.getByTestId(valueInput)).toBe('');
+  });
 });

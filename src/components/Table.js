@@ -40,25 +40,25 @@ class Table extends Component {
                   <td>{ elem.description }</td>
                   <td>{ elem.tag }</td>
                   <td>{ elem.method }</td>
-                  <td>{ elem.value }</td>
+                  <td>{ Number(elem.value).toFixed(2) }</td>
                   <td>{ elem.exchangeRates[elem.currency].name }</td>
-                  <td>{ elem.exchangeRates[elem.currency].ask }</td>
-                  <td>{ elem.value * elem.exchangeRates[elem.currency].ask }</td>
-                  <td>Real</td>
+                  <td>{ Number(elem.exchangeRates[elem.currency].ask).toFixed(2) }</td>
                   <td>
-                    <button
-                      data-testid="delete-btn"
-                      onClick={ () => this.handleDelete(elem.id) }
-                    >
-                      Excluir
-                    </button>
+                    { (elem.value * elem.exchangeRates[elem.currency].ask).toFixed(2) }
                   </td>
+                  <td>Real</td>
                   <td>
                     <button
                       data-testid="edit-btn"
                       onClick={ () => this.handleEdit(elem.id) }
                     >
                       Editar
+                    </button>
+                    <button
+                      data-testid="delete-btn"
+                      onClick={ () => this.handleDelete(elem.id) }
+                    >
+                      Excluir
                     </button>
                   </td>
                 </tr>
