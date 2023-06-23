@@ -10,19 +10,6 @@ class Login extends React.Component {
     disabled: true,
   };
 
-  // loginValidation = () => {
-  //   const { email, password } = this.state;
-  //   const min = 6;
-  //   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //   const validEmail = regex.test(email);
-  //   const validPass = password.length >= min;
-  //   if (validPass && validEmail) {
-  //     this.setState({ disabled: false });
-  //   } else {
-  //     this.setState({ disabled: true });
-  //   }
-  // };
-
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({
